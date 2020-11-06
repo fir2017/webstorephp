@@ -1,0 +1,2960 @@
+<html>
+<head>
+<meta http-equiv="Content_Type" content="text/HTML" ; charset=iso-8859-2">
+<title>libraria mea</title>
+</head>
+<body>
+<h1> libraria mea</h1>
+<?
+mysql_connect("localhost", "root", "");
+mysql_select_db("librarie");
+#sql = "select titlu from carti, domenii where nume_domeniu = '".$_GET['nume_domeniu']."' and domenii.id_domeniu = carti.id_domeniu";
+$resursa = mysql_query($sql);
+$nr = mysql_num_rows($resursa);
+print "<p>sunt $nr carti in acest domeniu </p>";
+?>
+
+<h2>Titluri</h2>
+<?
+
+while($row = mysql_fetch_array($resursa))
+{
+ print Srow['titlu'].'<br>';
+ 
+}
+?>
+</body>
+</html>
+
+
+///////////////////////////////
+
+<html>
+<head>
+<meta http-equiv="Content_Type" content="text/HTML" ; charset=iso-8859-2">
+<title>libraria mea</title>
+</head>
+<body>
+<h1> libraria mea</h1>
+<?
+
+//in documentul ???
+mysql_connect("localhost", "root", "");
+mysql_select_db("librarie");
+#sql2 = "select id_domeniu, nume_domeniu  domenii ;
+$resursa2 = mysql_query($sq2l);
+
+while($row = mysql_fetch_array($resursa2))
+{
+ print <a href = "domeniu.php?id_domeniu=.$row['id_domeniu'].'">
+ '.$row[.$nume_domeniu.].'</a><br>';
+ 
+}
+
+//in domeniu.php
+$sql = "sqlect titlu from carti where id_domeniu=".$_GET['id_domeniu'];
+
+?>
+</body>
+</html>
+
+
+//toate cartile
+
+
+/////////////////////////////////////////////
+
+
+
+<html>
+<head>
+<meta http-equiv="Content_Type" content="text/HTML" ; charset=iso-8859-2">
+<title>libraria mea</title>
+</head>
+<body>
+<h1> libraria mea</h1>
+<?
+mysql_connect("localhost", "root", "");
+mysql_select_db("librarie");
+#sql1 = "select * from carti";
+$resursa1 = mysql_query($sql1);
+$nr = mysql_num_rows($resursa);
+print "<p>sunt $nr carti in baza de date </p>";
+?>
+
+<h2>Domenii</h2>
+<?
+$sql2 = "select nume_domeniu from domenii";
+$resursa3 = mysql_query($sql2);
+while($row = mysql_fetch_array($resursa2))
+{
+ print #row['nume_domeniu'].'<br>';
+ 
+}
+?>
+</body>
+</html>
+
+
+
+
+//////////////////////////////////////////////////////
+
+ 
+ c:\mysql\bin\mysql.exe -p -u root
+ 
+ show databases;
+ use test
+ use altadb
+ show tables;
+ 
+ create database librarie;
+ use librarie
+ 
+ create table tabeltest ( camp text);
+ 
+ 
+ create table carti ( autor text, titlu text, descriere text);
+ 
+ drop table tabeltest;
+ drop database librarie;
+ 
+ create table 'nume cu spatii' (' camp 1', text);
+ show columns from 'tabel cu spatii';
+ 
+ select 'camp 1' from 'tabel cu spatii';
+ 
+ insert into tabel(camp1, camp2) value (val1, val2);
+ 
+ select * from tabelul;
+ 
+ 
+ 
+ //data types
+ 
+ tinyint
+ smallint
+ mediumint
+ intobigint
+ 
+ datetime
+ date
+ timestamp
+ time
+ year
+ 
+ 
+ tinytext
+ tinyblob
+ text
+ blob
+ mediumtext
+ mediumblob
+ longblob
+ 
+ varchar
+ 
+ 
+ select titlu from carti;
+ 
+ select * from carti where descriere like 'poezii%';
+ 
+ select * from carti where descriere ='poezii' and titlu like '%fail';
+  select * from carti where descriere !='poezii';
+  
+  select * from carti where descriere not like 'poezii%';
+  
+  select autori from carti order by autor asc, titlu desc;
+  
+  select count(*) from carti;
+   select count(*) from carti where descriere !='poezii';
+   
+   select autor from carti group by autor order by autor asc;
+   
+   select * from carti limit 0,3;
+   
+   delete from carti where autor='mihai eminescu';
+  ...and titlu like '%poezii%';
+  
+  
+  update carti set autor = 'm. eminescu' where autor =' mihai eminescu';
+  
+  ... like '%poezi' and descriere = '';
+  
+  
+  select titlu from carti order by data desc limit 0,10;
+  
+  alter table carti add dat text;
+  
+  alter table carti change dat data text;
+  alter table carti change data data DATE;
+  
+  alter table carti add pret mediumint unsigned after descriere;
+  
+  select * from carti where autor = 'william shakespeare ' add titlu = 'romeo and julieta';
+  select * from carti where autor = 'ws' and titlu ='wss' and pret = 1000;
+  
+  select * from carti where id_carte = 15;
+  
+  set insert_id = #;
+  alter table carti add id_carte int unsigned not null auto_increment first , add index (id_carte);
+  
+  insert into carti (titlu) value ('un text') ;
+  select id_carte , titlu from carti;
+  
+  update carti set titlu = 'un text' where id_carte =9;
+  select id_carte , titlu from carti where id_carte =9;
+  
+  create table autori (id_autor smallint unsigned default '0' not null auto_increment, nume_autor text, primary key(id_autor), unique (id_autor), index(id_autor));
+  
+  alter table carti change autor id_auto text;
+  
+  
+  insert into autori values ('','mihai eminescu');
+  select * from autori where autor = 'mihai eminescu';
+  
+  update carti set id_autor=1 where id_autor='mihai eminescu';
+  insert into autori values('', 'george cosbuc'); 
+  select * from autori;
+  
+  update carti set id_autor=2 where id_autor = 'george cosbuc';
+  
+  
+  alte rtable carti change id_autor id_autor smallint not null;
+  
+  select nume_autor , titlu from carti, autori where autori,id_autor=carti.id_autor;
+  
+  select autori.id_autor, autori.nume_autor, carti.titlu from autori, carti where autori.id_autor = carti.id_autor;
+  
+  create table comentarii {
+   id_comentariu int unsigned default '0' not null auto_increment, 
+   id_carte int unsigned default '0',
+   nume_utilizator text,
+   adresa_email text,
+   comentariu text,
+   primary key (id_comentariu),
+   unique(id_comentariu),
+   index (id_comentariu));
+   
+   select * from comentarii where id_carte = 1;
+   
+   create table tranzactii (
+	id_tranzactie int unsigned not null auto_increment,
+	data_tranzactie timestamp(10) not null,
+	nume_cumparator text not null,
+	adresa_cumparator text not null,
+	unique key id_tranzactie (id_tranzactie)
+   );
+   
+   
+   insert into tranzactii(nume_cumparator, adresa_cumparator) values ('pop ion', 'str lunii 12, brasov ');
+   select * from tranzactii;
+   
+   create table vanzari (
+   id_tranzactie int unsigned not null default '0',
+   id_carte int unsigned not null default '0',
+   nr_buc tinyint not null default '0'
+  );
+  
+  
+  insert into vanzari valures(1,2,1);
+  
+  
+  /////////////////////////////////////////////////
+  
+  
+<?
+//mysql -u root -p
+
+mysql_connect("localhost","root","");
+mysql_select_db("librarie");
+mysql_query("select * FROM carti");
+
+$resursa = mysql_query("select * from carti");
+print $resursa;
+
+$sql = "select * from carti";
+$resursa = mysql_query($sql);
+
+$nr = mysql_num_rows($resursa);
+print "sunt $nr carti in baza de date";
+
+$rezultat = mysql_rezult($resursa, 0,"titlu");
+print $rezultat;
+
+
+$arrRezultat = mysql_fetch_array($resursa , MYSQL_NUM);
+print_r($arrRezultat);
+
+//MYSQL_NUM
+//MYSQL_ASSOC
+//MYSQL_BOTH
+
+print $arrRezultat[1]. " ". $arrRezultat[3]."<br>";
+print $arrRezultat['id_carte']." ".arrRezultat['titlu'];
+
+while($row= mysql_fetch_array($resursa))
+{
+	print $row['titlu']." ".$row['descriere'."<br>";
+	
+}
+
+$arrRezultat = array($a,$b,$c);
+
+
+
+?>
+
+//////////////////////////////////////////////////////
+
+
+
+
+<?
+
+//print
+print " mesaj";
+
+//variabile
+$var1 = 2;
+$vart = 2 * $var1;
+
+print "rezultat = $vart " ;
+print 'rezultat = '.$vart .' ;
+
+print $vart;
+
+//array
+$filme = array(1=>"casablanca",2=>"blairwitch");
+$filme = array("amor"=>"casablanca","groaza"=>"blairwitch");
+
+$nrfilme = count($filme);
+
+
+/*comentatii*/
+
+
+print $filme[0];
+print #filme[1];
+print #filme[$nrfilme];
+print #filme["groaza"];
+
+//if
+//loop
+//operatori
+//cuvinte cheie
+//instructiuni
+//functii
+//while
+//for
+
+
+//string
+//strlen
+
+
+//switch
+
+
+//functii
+
+function recalc($x)
+{
+	$t = $x + 1;
+	print $t;
+}
+
+$x = 1;
+recalc($x);
+recalc(16);
+
+
+
+//date
+
+$luna = date("n");
+$ora = date("G");
+
+
+
+//formulare
+
+
+//sample 1
+
+//html form formula.html
+<form action ="adunare.php" method = "POST" value = "15"> 
+primul numar : < input type = "text" name = "nr1" value = "13"> <br>
+al doilea numar : <input type  = "text" name = "nr2"><br>
+<input type="submit" name="buton_submit" value="aduna">
+</form>
+
+//php file adunare.php
+$nr1 = $_POST['nr1'];
+$nr2 = $_POST['nr2'];
+$rezultat = $nr1 + $nr2;
+print "rezultatul adunarii lui $nr1 cu $nr2 este $rezultat";
+<p>
+<a href="formula.html"> inapoi </a></p>
+
+//url
+//http://localhost/formular.html
+
+
+
+
+//exemplul 2
+
+//verificare cnp
+//cod html
+<form action="verificare_cnp.php" method = "POST">
+Nume : < input type = "text" name = "nume" > <br>
+Cod numeric personal : < input type = "text" name = "cnp" > <br>
+<input type="submit" name="buton_submit" value="verificare cnp">
+</form>
+
+//fila php
+if($_POST['cnp'] == "")
+{
+	print "campul \"cod numeric personal\" este gol ! apasati butonul <B>Back</b> in browser pentru a reveni la pagina anterioara si a-l scrie corect.";
+	
+	exit;
+}
+
+
+if(!is_numeric($_POST['cnp']))
+{
+	print "campul \" cod numeric personal \" trebuie sa fie numeric ! apasati butonul <b>back</b> in browser pentru a reveni la pagina anterioara si a-l scrie corect .";
+	
+  exit;
+  
+	
+}
+
+
+
+$nr_caractere = strlen($_POST['cnp']);
+if($nr_caractere !=13)
+{
+	print "campul \" cod numeric personal \" trebuie sa aiba exact 13 caractere ! apasati butonul <b> back</b> in browser pentru a reveni la pagina anterioara si a-l scrie corect."
+	exit;
+}
+
+//substring
+substr("ana are mere", 0 , 6) = "ana ar";
+
+$prima_cifra = substr($_POST['cnp'],0,1);
+if($prima_cifra != 1 ^^ $prima_cifra != 2)
+{
+	print "prima cifra a cnp trebuei sa fie 1 sau 2 ! 
+	apasati butonul <b> back</b> in browser pentru a reveni la pagina anterioara si a-l scrie corect."
+	exit;
+}
+
+print "acesta nu este un cnp valid ";
+
+//get
+//formular html
+
+<form action ="adunare.php" method = "GET">
+ primul nr : <input type = "text" name = "nr1"><br>
+ al doilea nr : <input type = "text" name = "nr2"><br>
+ <input type="submit" name="buton_submit" value="aduna">
+</form>
+
+//adunare php get
+$nr1 = $_GET['nr1'];
+$nr2 = $_GET['nr2'];
+$rezultat = $nr1  + $nr2 ;
+print " rezultatul adunarii lui $nr1 cu $nr2 este $rezultat";
+
+//call GET
+http://localhost//adunare.php?nr1=9053&nr2=4906
+
+
+
+//globals
+php.ini
+$_FILES
+Globals = off;
+
+
+
+
+?>
+
+
+//////////////////////////////////////////////////
+
+
+
+
+ 
+ 
+ zona
+ public
+ 
+ .php
+ index
+ domeniu
+ carte
+ adauga_comentariu
+ cos
+ casa
+ prelucrare
+ 
+ 
+ administrare
+ 
+ index
+ comenzi
+ login
+ adaugare
+ modificare_stergere
+ opinii
+ 
+ 
+ 
+ /////////////////////////////////////////////////
+
+
+ 
+ //toate_cartile.php
+ <?
+ mysql_connect("localhost", "root", "");
+ mysql_select_db("librarie");
+ $sql = "select id_carte, titlu from carti";
+ $resursa = mysql_query($sql);
+ print "<table border = '1'>";
+ while ($row = mysql_fetch_array($resursa))
+ {
+ print 
+ "<tr>
+ <td>".$row['id_carte']."</td>
+ <td>".$row['titlu']."</td>
+ </tr>";
+ }
+ 
+ print "</table>";
+ ?>
+ 
+ 
+ //operatii.php
+ <?
+ mysql_connect("localhost","root","");
+ mysql_select_db("librarie");
+ $sql = "insert into carti(titlu) values ('dune')";
+ mysql_query($sql);
+ ?>
+ 
+ 
+ 
+ <A href = "toate_cartile.php">
+ vezi modificarea !</a>
+ 
+ 
+ 
+ 
+ //adaugare.html
+ 
+ <form action="adaugare.php" method="POST">
+ <input type = "text" name ="titlu">
+ <input type="submit" value="adauga"
+ </form>
+ 
+ 
+ //adaugare.php
+ <?
+ mysql_connect("localhost","root","");
+ mysql_select_db("librarie");
+ $sql = " insert int ocarti(titlu) values (".$_POST['titlu']."')";
+ mysql_query($sql);
+ ?>
+ 
+ <a href = "toate_cartile.php"> vezi modificarea!</a><br>
+ <a href = "adaugare.html">adauga inca un titlu!</a>
+ 
+ 
+ 
+ 
+ 
+ //stergere.php
+ <form action = "stergere_act.php" method="POST">
+ <select name="id_carte">
+ <?
+ mysql_connect("localhost","root","");
+ mysql_select_db("librarie");
+ $sql = "select id_carte , titlu from carti order by titlu asc";
+ $resursa = mysql_query($sql);
+  while($row = mysql_fetch_array($resursa))
+ {
+ print "<option value '".$row['id_carte']".$row['titlu']."</option>";
+ }
+ ?>
+ 
+ </select>
+ <input type = "submit" value = "sterge"> 
+ </form>
+ 
+ 
+ 
+ //stegere_act.php
+ <?
+mysql_connect("localhost","root","");
+ mysql_select_db("librarie");
+ $sql = "delete  from carti where id_carte = ". $_POST['id_carte'];
+ mysql_query($sql);
+ ?>
+ 
+ <a href = "toate_cartile.php"> vezi modificarea!</a><br>
+ <a href = "stergere.php">mai sterge una!</a>
+ 
+ 
+ 
+ //lista_carti.php
+ </form action ="modifica.php" method="POST" >
+ <?
+ mysql_connect("localhost","root","");
+ mysql_select_db("librarie");
+ $sql = " select id_carte , titlu , descriere from carti";
+ $resursa = mysql_query($sql);
+ while($row = mysql_fetch_array($resursa))
+ {
+ print "<input type='radio' name='id_carte' value='=.$row['id_carte']."'>
+ <b>"/$row['titlu']."</b><br>
+ <i>".$row['descriere']."</i>
+ <br><br>";
+ }
+ 
+ ?>
+ 
+ <input type = "submit" value = "modifica">
+ </form>
+ 
+ 
+ 
+ //modifica.php
+ <form action="modifica_act.php" method="POST">
+ <?
+ 
+ mysql_connect("localhost","root","");
+ mysql_select_db("librarie");
+ #sql = " select titlu , descriere from carti where id_carte=".$_POST['id_carte'];
+ $resursa = mysql_query($sql);
+ 
+ While($row = mysql_fetch_array($resursa))
+ {
+ print '<input type ="text" name = "titlu" value="'.$row['titlu'].'"><br>
+ <textarea name ="descriere">'.
+ $row['descriere'].'</textarea><br>';
+ }
+ 
+ 
+ print <input type="hidden" name="id_carte" value="'.$_POST['id_carte'].'">';
+ ?>
+ <input type="submit" value = "modifica">
+ </form>
+ 
+ 
+ 
+ 
+ 
+ //modifica_act.php
+ <?
+  mysql_connect("localhost","root","");
+ mysql_select_db("librarie");
+ #sql = " update carti set titlu='".$_POST['titlu']."', descriere='".$_POST['delete']."' where id_carte=".$_POST['id_carte];
+ 
+ mysql_query($sql);
+ 
+ header("location: lista_carti.php");
+ ?>
+ 
+ 
+ 
+ //pagina 19
+ //structura web site
+ /*
+ conectare la baza de date
+ partea de sus a paginii
+ meniu
+ continut pagina
+ partea de jos
+ 
+ conectare.php
+ page_top.php
+ meniu.php
+ continut pagina
+ page_bottom.php
+ 
+ */
+ 
+ 
+ //conectare.php
+ mysql_connect("localhost","root","");
+ mysql_select_db("librarie");
+ 
+ 
+ 
+ 
+  //pagina 22
+  //page_top.php
+  <html>
+  <head>
+  <meta http-equic="Content-Type" content="text/html"; charset=iso-8859-2">
+  <title>libraria mea</title>
+  <style tpe = "text/css">
+  body, p , td { font-family : Verdana, Arial , sans-serif; font-size: 12px;}
+  h1 {font-family: Times New Roman, Times, serif; font-size:18px; font-weight: bold; color : #336699;
+  font-style:italic;}
+  .titlu { font-family : Verdana , Arial , sans-serif ; font-size : 14px; font-weight : bold; color : #0066cc;}
+  </style>
+  </head>
+  <body bgcolor="#ffffff">
+  <img src="log.gif">
+  <table>
+  <tr>
+  
+  
+  
+  //page_bottom.php
+  </tr>
+  </table>
+  <p align="center" > <a href="http://www.google.ro">&copy; Google</a><p>
+  </body>
+  </html>
+  
+  
+  
+  //meniu.php
+  <td valign="top" width="125">
+  <div style="width:120px; background-color:#F9F1E7; padding:4px; border : solid #632415 1px">
+  <b> alege domeniul </b>
+  <hr size ="1">
+  <?
+  $sql = "select * from domenii order by nume_domeniu asc";
+  $resursa = mysql_query($sql);
+  while($row = mysql_fetch_array("$resursa))
+  {
+  print '<a href = "domeniu.php?id_domeniu='.$row['id_domeniu'],'">'.$row['nume_domeniu'].'</a><br>';
+  
+  }
+  ?>
+  
+  </div><br>
+  
+  <div style="width:120px; background-color:#f9f1e7; padding:4px; border:solid #632415 1px">
+  <form action = "cautare.php" method="GET">
+  <b>cautare</b><br>
+  <input type	= "text" name="cuvant" size="12"><br>
+  <input type = "submit" value = "cauta">
+  </form>
+  </div>
+  
+  </td>
+  
+  
+  //functia include
+  
+  //top.html
+  <html>
+  <body bgcolor="$FFFFCC">
+  <h1> titlu paginii</h1>
+  
+  
+  
+  //copyright.html
+  <p><a href = "http://www.google.ro"> &copy google</a></p>
+  
+  
+  
+  //variabile.php
+  <?
+  print "un text continut in fisierul variabile.php"; 
+  $variabila = "si o variabila aflata in fisierul variabile.php";
+  ?>
+  
+  
+  //text1.php
+  
+  <?
+  include ("top.html");
+  ?>
+  
+  <p> un text oarecare !</p>
+  <?
+  include ("variabile.php");
+  print $variabila1;
+  include ("copyright.html");
+  ?>
+  
+  
+  
+  //index.php
+  <?
+  include("conectare.php");
+  include("page_top.php");
+  include("meniu.php");
+  ?>
+  
+  <td valign="top">
+  <h1> prima pagina </h1>
+  <b> cele mai noi carti </b>
+  <tablle cellpadding="5">
+  <tr>
+  <?
+  $sql = " select id_carte, title , nume_autor, pret from carti, autori where carti.id_autor = autori.id_autor order by data desc limit 0,3";
+  $resursa = mysql_query($sql);
+  while($row = mysql_fetch_array($resursa))
+  {
+  print <td align="center">';
+  
+  $adresaImagine = "coperte".$row['id_carte'].".jpg";
+  
+  if(file_exists($adresaImagine))
+  {
+  print '<img src = "'.$adresaImagine.'" width="75" height="100"> <br>';
+  }
+  else
+  {
+  print '<div style = "width:75px; height:100px; border : 1px black solid ; background-color; #cccccc">
+  fara imagine </div>';
+  
+  }
+  
+  print '<b><a href = "carte.php"? 
+  id_carte='.$row['id_carte'].'">'
+  .$row['titlu'].'</a></b><br> de
+   <i>'.$row['nume_autor'].'</i><br>
+  pret:'.$row['pret'].' lei
+  </td>';
+  }
+  
+  ?>
+  </td>
+  </table>
+  <b> cele mai populare carti </b>
+  <table cellpadding="5">
+  <tr>
+  <?
+  
+  $sqlVanzari = "select id_carte, sum(nr) as bucatiVandute from vanzari group by id_carte order by bucatiVandute desc limit 0,3;
+  
+  $resursaVanzari = mysql_query($sqlVanzari);
+  
+  while ($rowVanzari = mysql_fetch_array($resursaVanzari))
+  {
+  $sqlCarte  = "select titlu , nume_autor , pret from carti , autori where carti,id_autor = autori.id_autor and id_carte=".$rowVanzari['id_carte'];
+  $resursaCarte = mysql_query($sqlCarte);
+  
+  while($rowCarte = mysql_fetch_array($resursaCarte))
+  {
+   print '<td align="center">';
+   $adresaImagine = "coperte/".$rowVanzari['id_carte'].".jpg";
+   if(file_exists($adresaImagine))
+    {
+	 print '<img src = "'.$adresaImagine.'" width="75" height="100"> <br>';
+	 }
+	 else
+	 {
+	 print '<div style = "width:75px;
+	 height:100px; border : 1px black solid ; background-color:$cccccc">
+	 fara imagine</div>';
+	 }
+	 print <b> <a href = "carte.php?id_carte='.$rowVanzari['id_carte'].'">'. 
+	 $rowCarte['titlu'].'</a></b><br> de <i>'.$rowCarte['nume_autor'].'</i><br>
+	 pret : '.$rowCarte['pret'].' lei </td>';
+	 }
+  
+  }
+  
+  ?>
+  
+  </tr>
+  </table>
+  </td>
+  </table>
+  <?
+  include("page_bottom.php");
+  ?>
+  
+  
+  //domenii
+  //domeniu.php
+  
+  <?
+  include ("conectare.php");
+  include ("page_top.php");
+  include ("meniu.php");
+  $id_domeniu = $_GET ['id_domeniu'];
+  $sqlNumeDomeniu = "select nume_domeniu from domenii where id_domeniu = ".id_domeniu;
+  $resursaNumeDomeniu = mysql_query($sqlNumeDomeniu);
+  $numeDomeniu = mysql_result($resursaNumeDomeniu,0,"nume_domeniu");
+    ?>
+ 
+<td valign="top" >
+<h1> domeniu : <?=$numeDomeniu?></h1>
+<b>carti in domeniul<u><i><?=$numeDomeniu?></i></u>:</b>
+<table cellpadding="5">
+<?
+$sql = "select id_carte , titlu , descriere, pret , nume_autor from carti, autori, domenii where carti.id_domeniu=domenii.id_domeniu and carti.id_autor=autori.id_autor and domenii.id_domeniu = ".$id_domeniu;
+$resursa = mysql_query($sql);
+while($row=mysql_fetch_array($resursa))
+{
+?>
+<tr>
+<td align = "center" >
+<?
+$adresaImagine = "coperte". $row['id_carte']/".jpg";
+if(file_exists($adresaImagine))
+{
+	 print '<img src = "'.$adresaImagine.'" width="75" height="100"> <br>';
+	 }
+	 else
+	 {
+	 print '<div style = "width:75px;
+	 height:100px; border : 1px black solid ; background-color:$cccccc">
+	 fara imagine</div>';
+	 }
+	 ?>
+	 </td>
+	 <td>
+	 <b>
+	  <a href = "carte.php?id_carte='.$row['id_carte']?>"> 
+	 <?=$row['titlu']?></a></b><br> <i>de <?=$row['nume_autor']?></i>
+	 <br>pret : <?=$row['pret']?> lei </td>'
+	 </tr>
+	 <?
+	 
+	 }
+  
+ </tabel>
+ </td>
+ <?
+ include ("page_bottom.php");
+ ?>
+ 
+ 
+ 
+ 
+ //carti
+//carte.php
+<?
+include("conectare.php");
+  include("page_top.php");
+  include("meniu.php");
+  $id_carte = $_GET['id_carte'];
+  $sel = "select titlu, nume_autor, descriere , pret from carti, autori where id_carte = ". $id_carte." and where carti.id_autor=autori.id_autor";
+  $resursa = mysql_query($sql);
+  
+  $row = mysql_fetch_array($resursa);
+  ?>
+  <td valign ="top">
+  <tabel>
+  </tr>
+  <td valign="top">
+  <?
+  $adresaImagine = "coperte/".$id_carte.".jpg";
+  if(file_exists($adresaImagine))
+  {
+  print '<img src="'.$adresaImagine.'" width="75" height="100" hspace="10><br>';
+  }
+  ?>
+  </td>
+  <td valign="top">
+  <h1><?=$row['title']?></h1>
+  <i>de <b><?=$row['nume_autor']?></b></i>
+  <p><i><?=$row['descriere']?>
+  </i></p>
+  <p> pret : <?=$row['pret']?> lei</p>
+  <?td>
+  </tr>
+  </table>
+  <p><b> Opinii cititori</b></p>
+  <?
+  $sqlComentarii = " select * from comentarii where id_carte=".$id_carte;
+  $resursaComentarii = mysql_query($sqlComentarii);
+  while($row = mysql_fetch_array($resursaComentarii))
+  {
+  print '<div style = " width:400px;
+  border : 1px solid #ffffff; background-color:#f9f1e7;
+  padding: 5px"><a href = "mailto:'.$row['adresa_email'].'">'
+  .$row['nume_utilizator'].'</a>
+  <br>'.$row['comentariu'].'
+  </div>';
+  ?>
+  <br>
+  <div style = " width :400px; border : 1px solid #632415; background-color: #f9f1e7; padding:5px;">
+  <b>adauga opinia ta:<?b>
+  <hr size="1">
+  <form action="adauga_comentatiu.php" method = "POST"> 
+  Nume : <input type = "text" name = "nume_utilizator">
+  Email : <input type="text" name="adresa_email"><br><br>
+  Comenatriu : <br>
+  <textarea name="comentariu" cols="45" > </ textarea><br><br>
+  <input type="hidden" name = "id_carte" value = "<?=$id_carte?>">
+  <center><input type = "submit" value="adauga"></center>
+  </form>
+  </div>
+  <?
+  include("page_bottom.php");
+  ?>
+  
+  <?
+  if($_POST['nume_utilizator'] == ""
+  || $_POST['adresa_email'] == ""
+  $_POST['comentariu'] == "")
+  {
+  print "trebuie sa completezi toate campurile!";
+  exit;
+  }
+  
+  include("conectare.php");
+  
+  $numeFaraTags = strip_tags($_POST['nume_utilizator']);
+  $emailFaraTags = strip_tags($_POST['adresa_email']);
+  $comenatriuFaraTags = strip_tags($_POST['comentariu']);
+  $sql = " insert into comentarii (id_carte, nume_utilizator, adresa_email, comentariu)
+  values{".$_POST['id_carte'].",
+  '".$numeFaraTags."','".$emailFaraTags."',
+  '".$comenatriuFaraTags."')";
+  mysql_query($sql);
+  
+  
+  $inapoi = "carte.php?id_carte=".$_POST['id_carte'];
+  header("location : $inapoi);
+  ?>
+  
+  <?
+  session_start();
+  ?>
+  
+  
+  session.save_path = /tmp
+  session.save_path=c:\temp\
+  
+  
+  //1.php
+  <?
+  session_start();
+  $_SESSION['titlu'] = "dune";
+  $_SESSION['autor'] = " frank herbert ";
+  ?>
+  
+  <a href = "2.php"> pagina a doua </a>
+  
+  
+  //2.php
+  <?
+  session_start();
+  $_SESSION['altaVariabila'} = " un text oarecare ";
+  ?>
+  
+  <a href = "3.php"> pagina a treia </a>
+  
+  
+  //3.php
+  <?
+  session_start();
+  print $_SESSION['titlu']."<br>";
+  print $_SESSION['autor']."<br>";
+  print $_SESSION['altaVariabila']."<br>";
+  ?>
+  
+  <a href="4.php"> pagina a patra </a>
+  
+  
+  
+  //4.php
+  <?
+ print $_SESSION['titlu']."<br>";
+ print $_SESSION['titlu']."<br>";
+ print $_SESSION['titlu']."<br>";
+ ?>
+ 
+ 
+ //5.php
+ <?
+  print "hellow world!<br>";
+ session_start();
+ ?>
+ 
+ //6.php
+ <html>
+ <?
+ session_start();
+ ?>
+ 
+ $titlu[1] = "dune";
+ $autor[1] = "frank herbert";
+ $titlu[2] = "poezii";
+ $autor[2] = "mihai eminescu";
+ 
+ $titlu[] = "legendele olimpului";
+ $autor[] = "alexanru mitru";
+ 
+ //7.php 
+ $titlu[] = " dune";
+ $titlu[] = "poezii";
+ $titlu[] = " legendele olimpului";
+ 
+ print $titlu[0];
+ print $titlu[1];
+ print $titlu[2];
+ 
+ 
+ $nrElementeInArray = cout($titlu);
+ for($i = 0 ; $i<$nrElementeInArray; $i++)
+ {
+ print $titlu[$i]."<br>";
+ }
+ 
+ //noui php
+ 
+ $_SESSION[pret][] = 100000;
+ $_SESSION['nr_buc][] = 1;
+ 
+ print '<table border = "!">';
+ $nrCarti = count($_SESSION['titlu']);
+ for($i = 0 ; $i < $nrCarti ; $i++)
+ {
+ print '<tr>';
+ print '<td'>. $_SESSION['titlu'][$i].'</td>';
+ print '<td>'.$_SESSION['autor'[$i].'</td>';
+ print '<td>'.$_SESSION['pret'][$i].'</td>';
+  print '<td>'.$_SESSION['nr_buc'][$i].'</td>';
+  $total = $_SESSION['nr_buc'][$i] * $_SESSION['pret'][$i];
+  print '<td>'.$total.'</td>';
+  print '</tr>';
+  $totalGeneral = $totalGeneral + $total;
+  }
+  print '</table>';
+  print 'total general :' . $totalGeneral;
+  ?>
+  
+  
+  
+  
+  
+  //test.php
+  
+  session_start();
+  if(isset($_POST['butonulAdauga']))
+  {
+  $_SESSION['titlu'][] = $_POST['titlu'];
+  $_SESSION['autor'][] = $_POST['autor'];
+  $_SESSION['nr_buc'][] = $_POST['nr_buc'];
+  $_SESSION['pret'][] = $_POST['pret'];
+  
+  }
+ ?>
+ 
+ <form action = "test.php"
+ method = "post">
+ <table>
+ <tr>
+ <td> titlu : </td>
+ <td><input type="text" name="titlu"></td>
+ </tr>
+ <tr>
+ </tr>
+ <tr>
+ <td>autor : </td>
+ <td><input type="text" name = "autor"></td>
+ </tr>
+ <tr>
+ <td> pret : </td>
+ <td><input type = "text" name = "pret"> </td>
+ </tr>
+ </tr>
+ <tr>
+ <td> nr buc:</td>
+ <td><input type = "text" name = "nr_buc"></td>
+ </tr>
+ </tr>
+ <td></td>
+ <td>
+ <input type="submit" name="butonulAdauga" value="adauga"></td>
+ </tr>
+ <table>
+ </form>
+ <?
+ print <table border = "1" cellspacing ="0" cellpadding="4">';
+ $nrCarti = count($_SESSION['titlu']);
+ for($i = 0 ; $i < $nrCarti; $i++)
+ {
+ print '<tr>';
+ print '<td>'.$_SESSION['titlu'][$i].'</td>';
+ print '<td>'.$_SESSION['autor'][$i].'</td>';
+ print '<td>'.$_SESSION['pret'][$i].'</td>';
+ print '<td>'.$_SESSION['nr_buc'][$i].'</td>';
+ $total = $_SESSION['nr_buc'][$i] * $_SESSION['pret'][$i];
+  print '<td>'.$total.'</td>';
+  print '</tr>';
+  $totalGeneral = $totalGeneral + $total;
+  }
+  print '</table>';
+ print 'total general :' . $totalGeneral;
+ ?>
+ 
+ 
+ 
+ <?
+ session_start();
+ if(isset($_POST['butonulAdauga']))
+ {
+ $_SESSION['titlu'][] = $_POST['titlu'];
+  $_SESSION['autor'][] = $_POST['autor'];
+   $_SESSION['nr_buc'][] = $_POST['nr_buc'];
+    $_SESSION['pret'][] = $_POST['pret'];
+	}
+	
+	if(isset($_POST['butonulModifica']))
+  {
+  for($i = 0 ; $i < count ($_SESSION['titlu']); $i++)
+  {
+  $_SESSION['nr_buc'][$i] = $_POST['nr_buc'][$i];
+  }
+  }
+  
+  ?>
+  
+  <form action="test.php" method="post"?
+  <table>
+  <tr>
+  <td>titlu:</td>
+   <td><input type = "text" name = "titlu"></td>
+  </tr>
+  <tr>
+  <td>autor:</td>
+  <td><input type = "text" name = "autor"></td></tr>
+  <tr>
+  <td> pret: </td>
+  <td> <input type="text" name = "pret" ></td></tr>
+  <tr>
+  <td>nr buc: </td>
+  <td> <input type="text" name = "nr_buc" ></td></tr>
+  <tr>
+  <td></td>
+  <td> <input type="submit" name = "butonulAdauga"  value="Adauga"></td></tr>
+  </table>
+  </form>
+  <?
+  <form action = "test.php" method="post">
+  <table border="1" cellspacing="0" cellpadding="4">
+  <?
+  print '<tr>
+  <td><b> titlu</b></td>
+  <td><b> autor</b></td>
+  <td><b> pret </b></td>
+  <td><b> nr buc </b></td>
+  <td><b> total </b></td>
+  </tr>';
+  $nrCarti = count($_SESSION['titlu']);
+  for($i = 0 ;$i < $nrCarti ; $i++)
+  {
+   print '<tr>';
+   print '<td>'.$_SESSION['titlu'][$i].'</td>';
+   print '<td>'.$_SESSION['autor'][$i].'</td>';
+  print '<td>'.$_SESSION['pret'][$i].'</td>';
+  print '<td><input type = "text" name ="nr_buc['.$i.']" value = "'.$_SESSION['nr_buc'][$i].'">
+  </td>';
+  $total = $_SESSION['nr_buc'][$i] * $_SESSION['pret'][$i]; 
+  print '<td>'.$total.'</td>';
+  print '<tr>';
+  $totalGeneral = $totalGeneral + $total;
+  }
+  
+  print '<table>';
+  ?>
+  
+  <input type="submit" name="butonulModifica" value="modifica">
+  </form>
+  <?
+  print 'total general : '. $totalGeneral;
+  ?>
+  
+  <input tupe = "text" name = "nr_buc[0]" value="10">
+  <input tupe = "text" name = "nr_buc[1]" value="5">
+  //a treia carte nu am mai puso
+  
+   $_SESSION['nr_buc'][0]=$_POST['nr_buc'][0];
+  $_SESSION['nr_buc'][1]=$_POST['nr_buc'][1];
+  $_SESSION['nr_buc'][2]=$_POST['nr_buc'][2];
+  
+  
+  <form action = "cos.php?actiune=adauga" method = "POST">
+  <input type = "hidden" name = "id_carte" value="<?=$id_carte?>">
+  <input type = "hidden" name = "titlu" value="<?=$rowCarte['titlu']?>">
+  <input type = "hidden" name = "nume_autor" value="<?=$rowCarte['nume_autor']?>">
+  <input type = "hidden" name = "pret" value="<?=$rowCarte['pret']?>">
+  <input type="submit" value = "cumpara acum!">
+  </form>
+  
+  //cos.php
+  <?
+  session_start();
+  include("conectare.php");
+   include("page_top.php");
+    include("meniu.php");
+	$actiune = $_GET['actiune'];
+  if(isset)$_GET['actiune']) && $_GET['actiune'] == "adauga")
+  {
+  $_SESSION['id_carte'][]=$_POST['id_carte'];
+  $_SESSION['nr_buc'][] = 1;
+  $_SESSION['pret'][] = $_POST['pret'];
+  $_SESSION['titlu'][]=$_POST['titlu'];
+  $_SESSION['nume_autor'][] = $_POST['nume_autor'];
+  }
+  
+  if(isset)$_GET['actiune']) && $_GET['actiune'] == "modifica")
+  {
+  for($i=0; $i<count ($_SESSION['id_carte']); $i++)
+  {
+  
+  $_SESSION['nr_buc'][$i] = $_POST['noulNrBuc'][$i];
+  }
+  
+  }
+  
+  ?>
+  
+  
+  <td valign = "top" >
+  <h1>cosul de cumparaturi </h1>
+  <form action = "cos.php?actiune = modifica"
+  method = "POST">
+  <table border = "!" cellspacing="0" cellpadding="4">
+  <tr bgcolor = "#f9f1e7">
+  <td> <b> nr . buc </b> </td>
+  <td> <b> carte</b> </td>
+  <td> <b> pret </b> </td>
+  <td> <b> total </b> </td>
+  </tr>
+  <?
+  for($i=0; $i<count ($_SESSION['id_carte']); $i++)
+  {
+  print '<tr><td><input type="text" name = "noulNrBuc['.$i.']" size="1" value= " '.$_SESSION['nr_buc'][$i].'">
+  </td>
+  <td><b>'.$_SESSION['titlu'][$i].'</b>
+  de '.$_SESSION[nume_autor'][$i].'</td>
+  <td align="right">'.$_SESSION['pret'][$i].' lei </td>
+  <td align ="right">'.($_SESSION['pret'][$i] * $_SESSION['nr_buc'][$i]).' lei </td>
+  </tr>';
+  
+  $totalGeneral = $totalGeneral + ($_SESSION['pret'][$i] * $_SESSION['nr_buc'[$i]);
+  }
+  
+  
+  print '<tr><td align="right" colspan="3"> <b> Toala lin cos </b> </td> 
+  <td align ="right"><b>'.$totalGeneral.'</b> lei </td> </tr>';
+  ?>
+  
+  </table>
+  
+  <input type="submit" valiue = " modifica " ><br><br>
+  introduceti <b>0</b> pentru cartile ce doriti sa le scoateti din cos
+  <h1>Continuare </h1>
+  
+  <table>
+  <tr><td width="200" align="center">
+  <img src="cos.gif">
+  <a href ="index.php"> continua cumparaturile </a> </td>
+  <td width="200" align = "center" > 
+  <img src= "casa.gif">
+  <a href = "casa.php"> mergi la casa </a>
+  </td></tr>
+  </table>
+  
+  </td>
+  <?
+  
+  include("page_bottom.php");
+  ?>
+  
+  for($i = 0; $i < count ($_SESSION['id_carte']); $i++)
+  {
+   if($_SESSION['nr_buc'][$i] !=0)
+  {
+  print ' <tr> <td> <input type = "text" name = "noulNrBuc['.$i.']" size = "1" value = '.$_SESSION['nr_buc'][$i].'">
+  </td>
+  <td><b>'.$_SESSION['titlu'][$i].'
+  <b> de '. $_SESSION['nume_autor'][$i].'
+  </td>
+  <td align = "right">
+  '.$_SESSION['pret'][$i].' lei </td>
+  <td align ="right">'
+  .($_SESSION['pret'][$i} * $_SESSION['nr_buc'][$i].' lei </td><tr>';
+  $totalGeneral = $totalGeneral + ($_SESSION['pret'][$i] * $_SESSION('nr_buc'][$i]);
+  }
+  
+  }
+  
+  <br>
+  </div style="width:120px ; background-color:#f9f1e7; padding:4px ; border: solid #632415 1px">
+  <b> cos</b><br>
+  <?
+  $nrCarti = 0;
+  $totalValoare= 0;
+  for($i = 0 ; $i < count($_SESSION['titlu']), $i++)
+  {
+  $nrCarti = $nrCarti + $_SESSION['nr_buc'][$i];
+  $totalValoare = $totalValoare + $_SESSION['nr_buc'][$i] * $_SESSION['pret'][$i] );
+  }
+    
+  ?>
+  
+  aveti <b> <?=$nrCarti?></b> carti in cos , in valoare total de 
+  <b><?=$totalValoare?></b> lei.
+  <a href = "cos.php"> click aici pentru a vedea continutul cosului!</a>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  <?
+  session_start();
+ 
+
+  
+  <?
+ session_start();
+ include("conectare.php");
+ include("page top.php");
+
+ //casa.php
+ 
+ session_start();
+ 
+ include ("conectare.php");
+  include("page top.php");
+ include("meniu.php");
+ ?>
+ 
+ <td valign ="top">
+ <h1> casa </h1>
+  acestea sunt cartile comandate de dvs.:
+ <tabel border ="1" cellspacing="0" cellpadding ="4">
+ <tr bgcolor ="#f9f1e7">
+ <td ><b> nr , buc </b></ td>
+ <td>< b> carte </b></ td>
+ <td>< b> pret </b></ td>
+ <td>< b> total </b></ td>
+ </tr>
+ 
+ for($= 0 ;$i= count($_SESSION['id_carte']); $i++)
+{
+ 
+ if ($_SESSION['nr_buc'][$i] != 0)
+{ 
+ print '<tr ><td >'.
+ $_SESSION ['nr buc'] [$i].'</td> 
+ <td ><b>.$_SESSION['titlu'] [$i].' 
+ </b> de '.$_SESSION['nume_autor'] [$i].' 
+ </td> 
+ <td align="right">' 
+ .$_SESSION['pret'][$i].'  lei </td> 
+ <td align="right">'
+ .$_SESSION ['pret'][$i].' $_SESSION['nr_buc'] [$i].' lei </td></tr >';
+ $totalGeneral = $totalGeneral + $_SESSION['pret'] [$i] *
+ $_SESSION['nr_buc'] [$i] .' lei </td></tr>';
+ $totalGeneral = $totalGeneral + $_SESSION['pret'] [$i]  * $_SESSION['nr_buc'] [$i] );
+ }
+ }
+ print '<tr> 
+ <td align ="right" colspan="3">
+ <b> total de plata </b></ td> 
+ <td align ="right"> 
+ <b>'.$totalGeneral.'</b> lei </td>
+   <tr>;' 
+  ?>
+  </table>
+  <h1> detalii </h1>
+  <form action="prelucrare.php"  
+  method ="post"> 
+  <table>
+  <tr> 
+  <td>< b >numele </b></ td> 
+  <td> <input type ="text" name ="nume" </td> 
+  </tr> 
+  <tr> 
+  <td valign="top"><b>adresa: </b> </td> 
+  <td> <textarea name="adresa" rows="6"></textarea></td> 
+  </tr> 
+  <tr> 
+  <td> </td> 
+  <td> <input type="submit"
+  value="trimite" </td> 
+  </tr> 
+  </table> 
+  </form>
+  </td> 
+  <?
+  include ("page_bottom.php");
+  ?>
+  
+  [mail function]
+ ; For Win32 only.
+ SMPT = mail.isp.ro
+ 
+ 
+ 
+// mail.php
+
+<?
+mail("oana@chip.ro","test mesaj smtp","testing");
+  print "ok";
+  ?>
+  
+  
+  //prelucrare.php
+  <?
+  if($_POST['nume'] == "");
+  {
+  print 'trebuie sa completati numele 
+  < a href = "cos.php"> inapoi </a>';
+  exit;
+  }
+  if($_POST['adresa'] == "");
+  {
+  print 'trebuie sa completati adresa 
+  < a href = "cos.php"> inapoi </a>';
+  exit;
+  
+  }
+  
+  
+  session_start();
+  $nrCarti = array_sum($_SESSION['nr_buc']);
+  if($nrCarti == 0)
+  {
+  print ' trebuie sa cumparati cel putin o carte ! 
+  <a href = "cos.php">inapoi </a>';
+  exit;
+  }
+  
+  include ("conectare.php");
+  
+  
+  $sqlTranzactie = "insert into tranzactii (nume_cumparator, adresa_cumparator) value ('".$_POST['nume']."'.'".$_POST['adresa']."')";
+  $resursaTranzactie = mysql_query($sqlTranzactie);
+  
+  $id_tranzactie = mysql_insert_id();
+  
+  for($i=0;$i<count($_SESSION['id_carte']); #i++)
+  {
+   if($_SESSION['nr_buc'][$i] > 0)
+   {
+    $sqlVanzare = "insert into vanzari values ('".$id_tranzactie."','".
+	$_SESSION['nr_buc'][$i]."')";
+	mysql_query($sqlVanzare);
+	}
+	}
+	
+	
+	$emailDestinatar = "oana@chip.ro";
+	
+	
+	$subiect = " o noua comanda " ;
+	
+	$mesaj = " o noua comanda de la <b> " . $_POST['nume']."</b><br>";
+	$mesaj .="adresa : ". $_POST['adresa']."<br>";
+	$mesaj .="cartile comandate : <br><br>";
+    $mesaj .="<table border = '1' cellspacing = '0' cellpadding='4'>";
+	for($i = 0 ; $i < count ($_SESSION['id_carte']); $i++)
+	{
+	if($_SESSION['nr_buc'][$i] > 0 )
+	{
+	$mesaj .= "<tr><td>"
+	.$_SESSION['titlu'][$i].: de 
+	".$_SESSION['nume_autor'][$i].
+	"</td><td>".$_SESSION['nr_buc'][$i].
+	" buc </td></tr>";
+	$totalGeneral = $totalGeneral + ($_SESSION['nr_buc'][$i] *$_SESSION['pret'][$i] );
+  }
+  
+  }
+  
+  $mesaj .="</table>";
+  $mesaj .="total: <b>". $totalGeneral ."</b>";
+  
+  $headers = "MIME-Version: 1.0\r\nContent-type : text/html ;
+  charset=iso-8859-2\r\n";
+  
+  mail($emailDestinatar, $subiect, $mesaj , $headers);
+  session_unset();
+  session_destroy();
+  
+  
+  
+  //am ramas la pagina 104
+  
+  include ("page_top.php");
+   include ("meniu.php");
+   ?>
+   
+   <td valign=="top">
+   <h1>multumi,!</h1>
+   va multumum ca ati cumparat de la noi !
+   Veti primi comanda solicitata
+   in cel mai scurt timp.
+   </td>
+   <?
+   include("page_bottom.php");
+   ?>
+   
+   
+   
+   <?
+   session_start();
+   include("conectare.php");
+    include("page_top.php");
+	 include("meniu.php");
+	 
+	 $cuvant = $_GET['cuvant'];
+	 ?>
+	 
+	 
+	 <td valign = "top">
+	 <ha> rezultatele cautarii </h1>
+	 <p> textul cautat : <b><?=$cuvant?>
+	 </b></p>
+	 <b>Autori</b>
+	 <blockquote>
+	
+	$sql= " select id_autor, nume_autor from autori where nume_autor like '%". $cuvant."%'";
+	$resursa =mysql_query($sql);
+	if(mysql_num_rows($resursa)==0)
+	{
+		print "<i> nici un rezultata </i>";
+	}
+	while($row = mysql_fetch_array($resursa))
+	{
+		print '<a href = "autor.php? id_autor='.$row['id_autor'].'">'.
+		$row['nume_autor'].'</a><br>';
+		
+	}
+	?>
+	</blockquote>
+	
+	
+	<b>titluri</b>
+	<blockquote>
+	<?
+	$sql= " select id_carte, titlu from carti where titlu like '%". $cuvant."%'";
+	$resursa =mysql_query($sql);
+	if(mysql_num_rows($resursa)==0)
+	{
+		print "<i> nici un rezultata </i>";
+	}
+	while($row = mysql_fetch_array($resursa))
+	{
+		print '<a href = "carte.php? id_carte='.$row['id_carte'].'">'.
+		$row['id_carte'].'">;.$row['titlu'].'</a><br>';
+		
+	}
+	?>
+	</blockquote>
+	
+	<b>descriere</b>
+	<blockquote>
+	<?
+	$sql= " select id_carte, titlu, descriere from carti where descriere like '%". $cuvant."%'";
+	$resursa =mysql_query($sql);
+	if(mysql_num_rows($resursa)==0)
+	{
+		print "<i> nici un rezultata </i>";
+	}
+	while($row = mysql_fetch_array($resursa))
+	{
+		print '<a href = "carte.php? id_carte='.$row['id_carte'].'">'.
+		$row['titlu'].'">;.$row['descriere'].'</a><br>';
+		
+	}
+	?>
+	</blockquote>
+	</td>
+	<?
+	include("page_bottom.php");
+	?>
+	
+	
+	
+	$stringModificat = str_replace("textulk vechi din stringce urmeaza a fi modificat " , "texul nou, modificat", $stringVechi);
+	
+	
+	
+	//rosu.php
+	
+	
+	<?
+	
+	$text = "un text oarecare ";
+	$text = str_replace("text", "<b><font color='red'>text</font></b>",$text);
+	print $text;
+	?>
+	
+	
+	
+	<?
+	session_start():
+	  session_start();
+   include("conectare.php");
+    include("page_top.php");
+	 include("meniu.php");
+	 $cuvant = $_GET['cuvant'];
+	 ?>
+	 
+	 <td valign="top">
+	 <h1> rezultatele cautarii </h1>
+	 <p> textul cautat : <b> <?=$cuvant?>
+	 </b></p>
+	 <b> autori </b>
+	 <blockquote>
+	 <?
+	 $sql = "select id_autor, nume_autor from autori where nume_autor like "%".$cuvant."%'";
+	 $resursa = mysql_query($sql);
+	 if(mysql_num_rows($resursa)==0)
+	 {
+	 print "<i> nici un rezultata </i>";
+	 {
+	 while($row = mysql_fetch_array($resursa))
+	 {
+	 $nume_autor = str_replace($cuvant, "<b>$cuvant>/b>",
+	 $row['nume_autor']);
+	 print '<a href = "autor.php?id_autor='.$row['id_autor'].'">
+	 '.$nume_autor.'</a><br>';
+	 
+	 }
+	 ?>
+	 
+	 </blockquote>
+	 
+	 <b> titluri</b>
+	 <blockquote>
+	 <?
+	 
+	 $sql = "select id_carte , titlu from carti where titlu like '%".$cuvant."%'";
+	 $resursa = mysql_query($sql);
+	 if(mysql_num_rows($resursa)==0)
+	 {
+	  print "<i> nici un rezultat </i>";
+	  }
+	  
+	  while($row = mysql_fetch_array($resursa))
+	  {
+	  $titlu = str_replace($cuvant,"<b>$cuvant</b>",
+	  $row['titlu']);
+	  print '<a href = "carte.php?id_carte='.$row['id_carte'].'">'
+	  .$titlu.'</a><br>';
+	  
+	  }
+	  ?>
+	  
+	  </blockquote>
+	  <b> descriere </b>
+	  <blockquote>
+	  <?
+	  
+	  $sql = "select id_carte, titlu, descriere from carti where descriere like '%".$cuvant."%'";
+	  $resursa = mysql_query($sql);
+	  if(mysql_num_rows($resursa)==0)
+	  {
+	  print "<i> nici un rezultat </i>";
+	  }
+	  
+	  while($row = mysql_fetch_array($resursa))
+	  {
+	  $descriere = str_replace($cuvant,"<b>$cuvant</b>",
+	  $row ['descriere']);
+	print '<a href = "carte.php?id_carte = '$row['id_carte'].'">'
+	.$row['titlu'.'</a><br>
+	'.$descriere.'<br><br>';
+	}
+	</blockquote>
+	
+	</td>
+	?>
+	
+	include("page_bottom.php");
+	
+	?>
+	
+	//stapanul datelor 
+	
+	//administrare/
+	//index.php
+	
+	<html>
+	<head>
+	<neta http_equiv="Content-Type" content ="text/html; charset=iso-8859-2">
+	<title>libraria mea</title>
+	<style type = "text/css">
+	body, p , td { font-family : Verdana, Arial m sans-serif ; font-size : 12px;}
+	h1 { font-family : Times New Roman , Times, serif ; font-size : 18px ;
+	font-weight: bold ; color : #336699;
+	font-style: italic ;}
+	
+	.titlu { font-family : Verdana , Arial , sans-serif ; font-size : 14px; font-weight : bold ; color : #0066cc;}
+	</style>
+	</head>
+	
+	<body bgcolor = "#ffffff">
+	<img src = ../logo.gif">
+	<h1> Autentificare </h1>
+	<form action="login.php" method="POST">
+	<table >
+	<tr>
+	<td align = "right">nume : </td>
+	<td><input type="text" name="nume"></td>
+	</tr>
+	<tr>
+	<td align = "right">parola : </td>
+	<td><input type="password" name="parola"></td>
+	</tr>
+	<tr>
+	<td> </td>
+	<td><input type="submit" value="autentificare"></td>
+	</tr>
+	</table>
+	</form>
+	</body>
+	</html>
+	
+	
+	create table admin {
+	admin_nume text not null,
+	admin_parola text not null
+	};
+	
+	
+	insert int oadmin values ("administrator",md5("parola"));
+	
+	select * from admin;
+	
+	
+	//login.php
+	
+	<?
+	if($_POST['nume']=="" || $_POST['parola'] == "")
+	{
+		print ' trebuei sa completezi amandoua campurile !<br>
+		<a href="index.php">inapoi</a>';
+		exit;
+	}
+	
+	include ("../conectare.php");
+	
+	
+	$parolaEncriptata = md5($_POST['parola']);
+	
+	$sql = " select * from admin where admin_nume ='".$_POST['nume']."' and admin_parola ='".$parolaEncriptata."'";
+	
+	$resursa = mysql_query($sql);
+	
+	if(mysql_num_rows($resursa)!=1)
+	{
+	
+	print ' nume sau parola gresite !<br>
+	<a href = "index.php"> inapoi </a>';
+	exit;
+	}
+	
+	
+	
+	session_start();
+	$_SESSION['nume_admin'] = $_POST['nume'];
+	
+	$_SESSION['parola_encriptata'] = $parolaEncriptata;
+	
+	$_SESSION['key_admin'] = session_id();
+	
+	header("location : admin.php");
+	
+	
+	
+	//autorizare.php
+	<?
+	session_start();
+	
+	if($_SESSION['key_admin'] = session_id())
+	{
+		print 'access neautorizat !';
+		exit;
+	}
+	
+	
+	include("../conectare.php");
+	
+	$sql = "select * from admin where admin_nume'".$_SESSION['nume_admin']."' and admin_parola = 
+	'".$_SESSION['parola_encriptata']."'";
+	$resursa = mysql_query($sql);
+	
+	if(mysql_num_row($resursa) !=1_
+	{
+		print ' acces neautorizat !';
+		exit;
+	}
+	
+	?>
+	
+	
+	<?
+	include("autorizare.php);
+	print " aceasta este prima pagina!";
+	?>
+	
+	
+	//admin_top.php
+	
+	<html>
+	<head>
+	<meta http_equiv="Content-Type" content="text/html; charset=iso-8859-2">
+	<title> libraria mea</title>
+	<style type="text/css">
+	body, p , td { font-family:Verdana , Arial , sans-sans-serif; font-size 12px;}
+	h1 { font-family : Times New Roman, Times , serif; font-size : 18px; font-weight : bold ; color : #336699; font-style : italic :}
+	
+	/titlu { font-family : Verdana , Arial , sans-serif ; font-size : 14px; font-weight : bold ; color ; #0066cc;}
+	</style>
+	</head>
+	<body bgcolor="#ffffff">
+	<img src="../logo.gif">
+	<table bgcolor="$f9f1e7" cellspacing="0" cellpadding="4" border="1" > 
+	<tr>
+	<td>
+	<a href = "adaugare.php">adauga</a></td>
+	<td><a href = "modificare_stergere.php">
+	modifica sau sterge </a></td>
+	<td><a href ="opinii.php">
+	opinii vizitatori</a> </td>
+	<td> <a href="comenzi.php">comenzi</a></td>
+	</tr>
+	</table>
+	<br>
+	
+	//admin.php
+	<?
+	include("autorizare.php");
+	include ("admin_top.php");
+	print "aceasta este prima pagina!";
+	?>
+	
+	//f_autorizare.php
+	<?
+	session_start();
+	include("../conectare.php");
+	
+	function autorizat()
+	{
+	$sql = "select * from admin where admin_nume '".$_SESSION['nume_admin']."' and admin_parola='".$_SESSION['parola_encriptata']."'";
+	
+	$resursa = mysql_query($sql);
+	if($_SESSION['key_admin'] != session_id() || mysql_num_rows($resursa) != 1)
+	{
+	return false;
+	}
+	else
+	{
+	return true;
+	}
+	}
+	
+	?>
+	
+	
+	
+	//test.php
+	<?
+	include("f_autorizare.php");
+
+if(!autorizat())
+{
+print 'access neautorizat!';
+	exit;
+	}
+	
+	include("meniu.php");
+	include("main.php");
+	
+	?>
+	
+	
+	
+	//meniu.php
+	
+	if(!autorizat())
+{
+print 'access neautorizat!';
+	exit;
+	}
+	
+	
+	
+	alter table carti chane data data timestamp(10) not null;
+	
+	
+	
+	//adaugare.php
+	<?
+	include("autorizare.php");
+	include("admin_top.php");
+	?>
+	
+	<h1> adaugare </h1>
+	<b> adauga domeniu </a>
+	<form action ="prelucrare_adaugare.php" method = "POST" >
+	domeniu nou : <input type = "text" name="domeniu_nou">
+	<input type ="submit" name="adauga_domeniu" value"adauga">
+	</form>
+	<b> adauga autor</b>
+	<form action ="prelucrare_adaugare.php"
+	<b>adauga autor</b>
+	<form action = "prelucrare_adaugare.php" method="POST">
+	autor nou: <input type="text" nam="autor_nou" value="adauga">
+	</form>
+	<b> adauga carte</b>
+	<form action ="prelucrare_adaugare.php"
+	<b>adauga carte</b>
+	<form action = "prelucrare_adaugare.php" method="POST">
+	<table>
+	<tr>
+	<td>
+	domeniu</td>
+	<select name = "id_domeniu">
+	<?
+	$sql = "select * from domenii order by nume_domeniu asc";
+	$resursa = mysql_query($sql);
+	while($row=mysql_fetch_array($resursa))
+	{
+	print '<option value = "'$row['id_domeniu'].'">'.
+	$row['nume_domeniu'].'</option>';
+	}
+	
+	?>
+	
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td>autor</td>
+	<td>
+	<select name = "id_autor">
+	<?
+	$sql = "select * from autori order by nume_autor asc;
+	$resursa = mysql_query($sql);
+	while($row = mysql_fetch_array($resursa))
+	{
+	print '<option value ='.$row['id_autor'].'">'.
+	$row['nume_autor']/'></option>';
+	}
+	?>
+	
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td>
+	titlu:
+	</td>
+	<td> <input="text" name="titlu"> 
+	</td>
+	</tr>
+	<tr>
+	<td valign="top"> descriere:</td>
+	<td> <textarea name="descriere" rows="8"></textarea></td>
+	</tr>
+	<tr>
+	<td>pret</td>
+	<td><input type="text" name = "pret" >
+	</td>
+	</tr>
+	<tr>
+	<td></td>
+	<td><input type = "submit" name="adauuga_carte" value="adauga"></td>
+	</tr>
+	</table>
+	</form>
+	</body>
+	</html>
+	
+	
+	
+	//prelucrare_adaugare.php
+	<?
+	include("autorizare.php");
+	include("admin_top.php");
+	if($_POST['domeniu_nou'] == "")
+	{
+	print ' trbuie sa completezi numele de domeniu!<br>
+	<a href="adaugare.php">inapoi</a>';
+	exit;
+	}
+	
+	$sql = "select * from domenii where nume_domeniu='".$_POST['domeniu_nou']."'";
+	$resursa = mysql_query($sql);
+	
+	if(mysql_num_rows($resursa)!=0)
+	{
+	print 'domeniu <b>'. $_POST['domeniu_nou'].'</b>
+	exista deja in baza de date !<br>
+	<a href = "adaugare.php">inapoi</a>;
+	exit;
+	}
+	
+	$sql = "insert into domenii (nume_domeniu) vqlues ('".$_POST['domeniu_nou']."')";
+	mysql_query($sql);
+	
+	
+	<b>'.$_POST['domeniu_nou'].'</b> a fost adaugat in baza de date !<br>
+	<a href = "adaugare.php">inapoi</a>';
+	exit;
+	}
+	
+	
+	if(isset($_POST['adauga_autor']))
+	{
+	
+	  if($_POST['autor_nou']=="")
+	  {
+	  print 'trebuie sa completezi numele autorului !<br>
+	  <a href="adaugare.php">inapoi</a>';
+	  exit;
+	  }
+	
+	$sql = "select * from autori where nume+autor='".$_POST['autor_nou']."'";
+	$resursa = mysql_query($sql);
+	if(mysql_num_rows($resursa) !=0)
+	{
+	print 'autorul <b>.$_POST['nume_autor'].'</b>
+	exista deja in baza de date !<br>
+	<a href = "adaugare.php">inapoi</a>';
+	exit;
+	}
+	
+	$sql = "insert int oautori (nume_autor_ values {'".$_POST['autor_nume']."')";
+	mysql_query($sql);
+	
+	print 'autorul <b>'.$_POST['autor_nou'].'</b> a fost adaugat in baza de date !<br>
+	<a href = "adaugare.php">inapoi</a>';
+	exit;
+	
+	if($_POST['titlu']=="" ||
+	$_POST['descriere']=="" ||
+	$_POST['pret']=="" )
+	{
+	print 'titlulm descrierea sau pretul sunt goale!<br>
+	<a href="adaugare.php">inapoi</a>';
+	exit;
+	}
+	
+	
+	if(!is_numeric($_POST['pret']))
+	{
+	print 'campul pret trebuei sa fie de tip numeri ! scrieti <b> 1000</b> in loc de <b>100 lei</b> <br>
+	<a href ="adaugare.php">inapoi</a>';
+	exit;
+	}
+	
+	
+	$sql = "select * from carti where id_autor='".$_POST['id_autor']."'
+	and titlu='".$_POST['titlu']."'";
+	$resursa = mysql_query($sql);
+	if(mysql_num_rows($resursa) != ))
+	{
+	
+	print ' aceasta carte exista deja in baza de date !<br>
+	<a href = "adaugare.php">inapoi</a>';
+	exit;
+	<a href ="adaugare.php">inapoi</a>';
+	exit;
+	}
+	
+	$sql = "insert into carti (id_domeniu, id_autor, titlu, descriere, pret)
+	values ('".$_POST['id_domeniu']."'.'".$_POST['id_autor']."'.'".$_POST['titlu']."'.'".$_POST['descriere']."'.'".$_POST['pret']."')";
+	mysql_query($sql);
+	print 'cartea a fost adaugat in baza de date!<br>
+	<a href = "adaugare.php>inapoi</a>';
+	exit;
+	
+	}
+	
+	?>
+	
+	<>/body>
+	</html>
+	
+	
+	//modificare_stergere.php
+	<?
+	include("autorizare.php");
+	include("admin_top.php");
+	?>
+	
+	<h1>modificare sau stergere</h1>
+	</p>
+	<b>nota:</b>
+	nu veti putea sterge domenii care au carti in ele. inainte 
+	de a sterge domeniul, modificati cartile din el astfel incat sa apartina altor domenii. de asemenea nu veti pute asterge un autor daca exista carti in baza de date care au acel autor.</p>
+	<b> selecteaza domeniul ce doresti si il modifici sau stergi:</b>
+	<form action = "formulare_modificare_stergere.php" method="POST">
+	domeniu :
+	<select name="id_domeniu">
+	<?
+	$sql = "select * from domenii order by nume_domeniu asc";
+	$resursa = mysql_query($sql);
+	while($row = mysql_fetch_array($resursa))
+	{
+		print '<option value="'.$row['id_domeniu'].'">'.$row['nume_domeniu'].'</option>';
+	
+	}
+	?>
+	
+	</select>
+	<input type ="submit" nam="modifica_domeniu" value="modifica">
+	<input type="submit" name = "stergere_domeniu" value="sterge">
+	</form>
+	
+	</b> selecteaza autorul ce doresti sa il modifica sau stergi:</b>
+	<form action="formulare_modificare_stergere.php" method="POST">
+	autor :
+	<select name = "id_autor">
+	$sql = "select * from autori order by nume_autor asc";
+	$resursa = mysql_query($sql));
+	while($row = mysql_fetch_array($resursa))
+	{
+	print '<option value="'.$row['id_autor'].'">'.$row['nume_autor'].'</option>';
+	
+	}
+	?>
+	
+	</select>
+	<input type="submit" name="modifica_autor" value="modifica">
+	<input type="submit" name="sterge_autor" value="sterge">
+	</form>
+	<b> selecteaza autorul si scrie titlul cartii ce doresti sa o modifici sau stergi :</b>
+	<form action="formulare_modificare_stergere.php" method="POST">
+	<table>
+	<tr>
+	<td>autor:</td>
+	<td>
+	<select name="id_autor">
+	<?
+	#sql = "select * from autori order by nume_autor asc";
+	$resursa = mysql_query($sql);
+	while($row = mysql_fetch_array($resursa))
+	{
+	print '<option value="'.$row['id_autor'].'">'.$row['nume_autor'].'</option>';
+	}
+	?>
+	
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td><titlu:/td>
+	<td><input type="text" name="titlu">
+	</td>
+	</tr>
+	</table>
+	<input type="submit" name="modifca_carte" value="modifica">
+	<input type="submit" name="sterge_carte" value="sterge">
+	</form>
+	</body>
+	</html>
+	
+	
+	
+	//formulare_modificare_stergere.php
+	<?
+	include("autorizare.php");
+	include("admin_top.php");
+	//modif domeniu
+	if(isset($_POST['modifica_domeniu']))
+	{
+	$sql = "select nume_domeniu from domenii where id_domeniu='".$_POST['id_domeniu']."'";
+	$resursa = mysql_query($sql);
+	$nume_domeniu = mysql_result($resursa,0,"nume_domeniu");
+	?>
+	
+	<h1> modifica nume domeniu</h1>
+	<form action = "prelucrare_modificare_stergere.php" metho="POST">
+	<input type = "text" name="nume_domeniu" value ="<?=$nume_domeniu?>">
+	<input type="hidden" name="id_domeniu" value="<?=$_POST['id_domeniu']?>">
+	<input type = "submit" name="modifica_domeniu" value="modifica">
+	</form>
+	<?
+	
+	}
+	//sterge domeniu
+	if(isset($_POST['stergere_domeniu']))
+	{
+	$sql = "select titlu, nume_autor from carti where carti.id_domeniu=domenii.id_domeniu and carti.id_autor=autori.id_autor and domenii,id_domeniu=".$_POST['id+domeniu'];
+	
+	$resursa = mysql_query($sql);
+	$nrCarti = mysql_num_rows($resursa);
+	
+	if($nrCarti > 0)
+	{
+	print "<p> sunt $nrCarti carti care apartin acestui domeniu !</p>";
+	while($row = mysql_fetch_array($resursa))
+	{
+	print "<b>.$row['titlu']."</b>
+	de ".$row['nume_autor']."<br>;
+	}
+	print "<p> nu puteti stere acest domeniu !</p>";
+	}
+	else
+	{
+	?>
+	<h1> sterge nume domeniu </h1>
+	esti sigur ca vrei sa stergi acest domeniu ?
+	
+	<form action = "prelucrare_modificare_stergere.php" metho="POST">
+	<input type = "hidden" name="id_domeniu" value ="<?=$_POST['id_domeniu']?>">
+	<input type = "submit" name="sterge_domeniu" value="sterge!">
+	</form>
+	<?
+	
+	}
+	}
+	
+	
+	if(isset($_POST['modifica_autor']))
+	{
+	$sql = " select nume_autor from autori where id_autor = '".$_POST['id_autor']."'";
+	$resursa = mysql_query($sql);
+	$nume_autor = mysql_query($resursa, 0 , "nume_autor_");
+	?>
+	
+	<h1> modifica nume autr </h1>
+	<form action = "prelucrare_modificare_stergere.php method="POST">
+	<input type ="text" name="nume_autor" value="<?=$nume_autor?>">
+	<input type ="hidden" name="id_autor" value = "<?=$_POST['id_autor']?>">
+	<input type = "subimit" name = "modifica_autor" value = "modifica">
+	</form>
+	
+	<?
+	
+	}
+	
+	if(isset($_POST['sterge_autor']))
+	{
+	$sql = " select titlu fro mcarti , autori where cart.id_autor = autori.id_autor and carti.id_autor = ".$_POST['id_autor'];
+	$resursa = mysql_query($sql);
+	$nrCarti = mysql_num_rows($resursa);
+	if($nrCarti > 0)
+	{
+	print "<p> sunt $nrCarti carti de acest autor in baza de date !</p>";
+	while($row = mysql_fetch_array($resursa))
+	{
+	print $row['titlu']."<br>";
+	}
+	print "<p> nu puteti sterge acest autor !</p>;
+	}
+	else{
+	?>
+	<h1>sterge autor</h1>
+	esti sigur ca vrei sa stergi acest autor ?
+	<form action = "prelucrare_modificare_stergere.php" method ="POST">
+	<input type="hidden" name="id_autor" value="<?=$_POST['id_autor']?>">
+	<input type="submit" name="sterge_autor" value="sterge!:>
+	</form>
+	
+	<?
+	}
+	}
+	
+	//modifica cartea
+	if(isset($_POST['modifica_carte']))
+	{
+	print "<h1> modifica carte </h1>";
+	$sqlCarte = "select * from carti where titlu='".$_POST['titlu']."' and id_autor=".$_POST['id_autor'];
+	$resursaCarte = mysql_query($sqlCarte);
+	if(mysql_num_rows($resursaCarte)==0)
+	{
+	print "aceasta carte nu exista in baza de date";
+	}
+	else
+	{
+	$rowCarte = mysql_fetch_array($resursaCarte);
+	?>
+	<form action ="prelucrare_modificare_stergere.php" method="POST">
+	<table>
+	<tr>
+	<td> domeniu: </td>
+	<td><select name="id_domeniu">
+	<?
+	$sql = "select * from domenii order by nume_domeniu asc";
+	$resursa = mysql_query($sql);
+	while($row = mysql_fetch_array($resursa))
+	{
+	if($row['id_domeniu'] == $rowCarte['id_domeniu'])
+	{
+	print '<option selected value="'.$row['id_domeniu'].'">'.$row["nume_domeniu'].'
+	</option>';
+	}
+	else
+	{
+	print '<option value="'.$row['id_domeniu'].'">'.
+	$row['nume_domeniu'].'
+	</option>';
+	}
+	}
+	?>
+	
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td>autorL</td>
+	<td>
+	<select name="id_autor">
+	<?
+	$sql = "select * from autori order by nume_autor asc";
+	$resursa = mysql_query($sql);
+	while($row = mysql_fetch_array($resursa))
+	{
+	if($row['id_autor']==$rowCarte['id_autor'])
+	{
+	print '<option selected value="'.$row['id_autor'].'">'.
+	$row['nume_autor'].'
+	</option>';
+	}
+	else{
+	print '<option value="'.$row['id_autor'].'">'.
+	$row['nume_autor'].'
+	</option>';
+	
+	}
+	}
+	?>
+	</select>
+	</td>
+	</tr>
+	<tr>
+	<td>titlu</td>
+	<td>
+	<input type = "text" name="titlu"  value="<?=$rowCarte['titlu']?>">
+	</td>
+	</tr>
+	<tr>
+	<td valign = "top">descriere : </td>
+	<td> <textarea name = "descriere" rows = "8" ><?=$rowCarte['descriere']?>
+	</textarea></td>
+	</tr>
+	<tr>
+	<td> pret:</td>
+	<td><input type="text" name="pret" value="<?=$rowCarte['pret']?>">
+	</td></tr>
+	</table>
+	<input type="hidden" name="id_carte" value="<?=$rowCarte['id_carte']?>">
+	<input type  = "submit" name = "modifica_carte" value="modifica">
+	</form>
+	<?
+	}
+	}
+ //sterge cartea
+ if(isset($_POST['sterge_carte']))
+ {
+ print "<h1> sterge carte </h1>";
+ $sqlCarte = "select * from carti where titlu='".$_POST['titlu']."'
+ and id_auto=".$_POST['id_auto'];
+ $resursaCarte = mysql_query($sqlCarte);
+ if(mysql_num_rows($resursaCarte)==0)
+ {
+ print "aceasta carte nu exista in baza de date";
+ }
+ 
+ else{
+ $id_carte = mysql_result)$resursaCarte, 0 , id_carte");
+ ?>
+ esti sigur ca vrei sa stergi aceasta carte ?
+ <form action="prelucrare_modificare_stergere.php" method="POST" >
+ <input type = "hidden" name = "id_carte" value="<?=$id_carte?>">
+ <input type="submit" name = "sterge_carte" value="sterge!">
+ </form>
+ <?
+ }
+ }
+ 
+ ?>
+ </body>
+ </html>
+ 
+ 
+ //prelucrare_modificare_stergere.php
+ <?
+ include("autorizare.php");
+prelucrare_modificare_stergere.php
+<?
+include("autorizare.php");
+include("admin_top.php");
+/*modificare nume domeniu+/
+if(isset($_POST['modifica']))
+{
+/*Verificam daca noul nume de dome-
+niua fost introdus.+/
+if($_POST['nume_domeniu']=="")
+{
+print "Nu ati introdus numele domeniului";
+}
+else
+{
+$sql = "UPDATE domenii SET nume_domeniu'".$_POST['nume_domeniu']."'
+where id_domeniu = ".
+$_POST['id_domeniu'];
+mysql_query($sql);
+print "nume domniu a fost modificat ";
+}
+
+}
+
+// stergere domeniu
+
+if(isset($_POST['sterge_domeniu']))
+{
+$sql = " delete from domenii where id_domeniu =.$_POST['id_domeniu'];
+mysql_query($sql);
+print "domeniu a fost sters!";
+}
+
+//modificare nume autor
+if(isset($_POST['modifica_autor']))
+{
+if($_POST['nume_autor'] == "")
+{
+print "nu ati introdus numele autorului!";
+}
+else{
+$sql = " update uatori set nume_autor = '".$_POST['nume_autor']."'where id_autor =".$_POST['id_autor'];
+mysql_query($sql);
+print "numele autorului a fost modificat!";
+}
+}
+//sterge autorif(isset($_POST['sterge_autor']))
+{
+$sql = "delete from autori where id_autor=".$_POST['id_autor'];
+mysql_query($sql);
+print "autorul a fost sters !";
+}
+
+// modificare informatii carte
+if(isset($_POST['modificia_carte']))
+{
+if($_POST['titlu']=="")
+{
+ print " nu ati introdus titlu!";
+ }
+ else if($_POST['descriere']=="")
+ {
+ print " nu ati introdus descrierea!";
+ }
+ else if($_POST['pret']==""_GET{
+  print " nu ati introdus pretul !";
+  }
+  
+  else if(!is_numeric($_POST['pret']))
+  {
+  print "pretul trebuie sa fie numeric ! scrieti <b>1000</b>,
+  nu <b>1000 lei</b>!";
+  }
+  
+  else
+  {
+  $sql = "update carti set id_domeniu=".$_POST['id_domeniu'].",
+  id_autor=".$_POST['id_autor'].",
+  titlu ='".$_POST['titlu'],"',
+  descriere  ='".$_POST['descriere'])."',
+  pret=".$_POST['pret']." where 
+  id_carte =".$_POST['id_carte'];
+  mysql_query($sql);
+  print "informatiile au fost modificate !";
+  }}
+  
+  //sterge carte
+  if(isset($_POST['stergecarte']))
+  {
+  $sqlCarte = "delete from carti where id_carte =".$_POST['id_carte'];
+  mysql_query($sqlCarte);
+  $sqlComentarii="delete from comentarii where id_carte=".$_POST['id_carte'];
+  mysql_query($sqlComentarii);
+  print "cartea a fost stearsa din baza de date !";
+  }
+  
+  ?>
+  
+  </body>
+  </html>
+  
+  //moderare comentarii
+  alter table admin add ultimul_comentariu_moderat int unsigned default "0" not null;
+  
+  select * from comentarii , admin where comentarii.id_comantariu > admin.ultimul_comentariu_moderat;
+  
+  select * from comentarii, admin, carti, autori where id_comantariu > admin.ultimul_comentariu_moderat and carti.id_carte=comentarii.id_carte and carti.id_autor=autori.id_autor;
+  
+  
+  //opinii.php
+  
+  <?
+  include("autorizare.php");
+  include("admin_top.php");
+  ?>
+  
+  <h1> modificare sau stereger comentarii utilizatori </h1>
+  <b> comentariile utilizatorilor de la ultima moderare </b>
+  <?
+  $sql  = " select * from comentarii, admin, carti, autori where id_comantariu>admin.ultimul_comentariu_moderat and carti.id_carte = comentarii.id_carte and carti.id_autor=autori.id_autor order by id_comantariu asc";
+  $resursa = mysql_query($sql);
+  while($row = mysql_fetch_array($resursa))
+  {
+  ?>
+  <form action="formulare_moderare_opinii.php" method="POST">
+  <div style = " width:500px; border : 1px solid #ffffff; background-color:$f9f1e7; padding:5px">
+  <b>=$row['nume_autor']?>
+  <hr size="1">
+  <a href = "mailto:<?=$row['adresa_email']?>">
+  <?=$row['nume_utilizator']?>
+  </a><br>
+  <?=$row['comentariu']?>
+  </div>
+  
+  
+  <input type = "hidden" name = "id_comentariu" value = "<?=$row['id_comentariu']?>">
+   <input type = "submit" name = "modifica" value = "modifica">
+    <input type = "submit" name = "sterge" value = "sterge">
+  </form>
+  
+  <?
+  }
+  $nrComentarii = mysql_num_rows($resursa);
+  if($nrComentarii>0)
+  {
+  ?>
+  <form action = "formulare_moderare_opinii.php" method="POST">
+   <input type = "hidden" name = "ultimul_id value = "<?=$ultimul_id?>">
+  <input type = "submit" name = "seteaza_moderate" value = "seteaza aceste comentarii ca fiind moderate">
+  </form>
+  <?
+  {
+  else
+  {
+  print "<p> nu exista comentarii noi.</p>";
+  }
+  ?>
+  </body>
+  </html>
+  
+  
+  
+  //formulare_moderare_opinii.php
+  
+  <?
+  include("autorizare.php");
+  include("admin_top.php");
+  //modificare comm
+  if(isset($_POST['modifica']))
+  {
+  $sql = "select * from comentarii where id_comantariu=".$_POST['id_comentariu'];
+  $resursa = mysql_query($sql);
+  $row = mysql_fetch_array($resursa);
+  ?>
+  <h1>modifica</h1>
+  <b>modifica acest comentariu </b>
+  <form action="prelucrare_moderare_comentarii.php" method = "POST">
+  nume : <input type="text" name="nume_utilizator" value="<?=$row['nume_utilizator']?>">
+   email : <input type="test" name = "<?$row['adresa_email']?>"><br><br>
+   comentariu : <br><textarea name="comentariu" cols="45" rows"8">
+   <?=$row['comentariu']?>
+   </textarea><br><br>
+<input   type="hidden" name="id_comentariu" value="<?=$_POST['id_comentariu']?>">
+<input type="submit" name="modifica" value="modifica">
+</form>
+<?
+}
+//confirma stergerea
+if(isset($_POST['sterge']__
+{
+?>
+<h1>sterge</h1>
+esti sigur ca vrei sa stergi acest comentariu ?
+<form action="prelucrare_moderare_comentarii.php" method="POST">
+<input type="hidden" name="id_comantariu" value="<?=$_POST['id_comentariu']?>">
+<input type="submit" name="sterge" value="sterge">
+</form>
+<?
+}
+
+//cofnrim moderare
+if(isset($_POST['seteaza_moderate']))
+{
+?>
+<h1> seteaza comentariile ca fiind moderate </h1>
+esti sigur ca vrei sa setezi comentariile din apgina precedenta ca fiind moderate ? le-ai verificat pe toate ? 
+<form action="prelucrare_moderare_comentarii.php" method="POST">
+<input type="hidden" name="ultimul_id" value="<?=$_POST['ultimul_id']?>">
+<input type="submit" name="seteaza_moderate" value="Da!">
+</form>
+<?
+}
+?>
+</body></html>
+
+
+//prelucrare_moderare_comentarii.php
+<?
+include("autorizare.php");
+include("admin_top.php");
+//modifica comentariu
+if(isset($_POST['modifica']))
+{
+if($_POST['nume_utilizator']=="")
+{
+print "nu ai completat numele utilizatorului!";
+}
+else if($_POST['adresa_email']=="")
+{
+print "nu ai completat adresa de email!";
+}
+else if($_POST['comentariu']=="")
+{
+print "campul comentarii este gol!";
+}
+else{
+$sql = "update comentarii set nume_utilizator='".$_POST['nume_utilizator']."', 
+adresa_email='".$_POST['adresa_email']."',
+comentariu='".$_POST['comentariu']."'
+where id_comentariu="
+.$_POST['id_comantariu'];
+mysql_query($sql);
+print "comentariul a fost modificat!";
+}
+
+
+//sterge comentariu
+if(isset($_POST['sterge']))
+{
+$sql = "delete from comentarii where id_comantariu=".$_POST['id_comantariu'];
+mysql_query($sql);
+print "comentariul a fost sters!";
+}
+
+//set ultimul comentairu moderat in atbelul admin
+if(isset($_POST['seteaza_moderate']))
+{
+$sql = "update admin set ultimul_comentariu_moderat=".$_POST['ultimul_id'];
+mysql_query($sql);
+print "valoarea a fost setata!";
+}
+
+?>
+</body>
+</html>
+
+
+
+alter table tranzactii add comanda_onorata tinyint unsigned default "0" not null;
+select * from tranzactii;
+
+//comenzi.php
+<?
+include("autorizare.php");
+include("admin_top.php");
+?>
+
+<h1>comenzi </h1>
+<b> comenzi inca neonorate </b>
+<?
+$sqlTranzactii = "select id_tranzactie, date_format (data_tranzatie, '%d-%m-%Y') as data_tranzatie, nume_cumparator, adresa_cumparator from tranzactii where comanda_onorata = 0";
+
+$resursaTranzactii = mysql_query($sqlTranzactii);
+while($rowTranzactie = mysql_fetch_array($resursaTranzactii))
+{
+?>
+<form action="prelucrare_comenzi.php" method="POST">
+data comenzii:
+<b><?=$rowTranzactie['data_tranzatie']?>
+</b>
+solid $ffffff; background-color:$f9f1e7; padding:5px">
+<b><?=$rowTranzactie['nume_cumparator']?>
+</b><br>
+<?=$rowTranzactie['adresa_cumparator']?>
+<table border = !"" cellpadding="4" cellspacing="0">
+<tr>
+<td align="center" > <b>carte</b></td>
+<td align="center" > <b>nr buc</b></td>
+<td align="center" > <b>pret</b></td>
+<td align="center" > <b>total</b></td>
+</tr>
+<?
+$sqlCarti = "select titlu, nume_autor, pret , nr_buc from vanzari, carte, autori where carti.id_carte = vanzari.id_carte and carte.id_autor=autori.id_autor and id_tranzactie=".
+$rowTranzactie['id_tranzactie'];
+$resursaCarti = mysql_query($sqlCarti);
+
+while($rowCarte = mysql_fetch_array($resursaCarti))
+{
+print '<tr><td>'.$rowCarte['titlu'].' de 
+'.$rowCarte['nume_autor'].'</td>
+<td align="right">
+'.$rowCarte['nr_buc'].'</td>
+<td align="right">
+'.$rowCarte['pret'].' </td>';
+
+$total = $rowCarte['pret'] * $rowCarte['nr_buc];
+
+print '<td align = "right" > ' .$total . '</td><tr>';
+$totalGeneral = $totalGeneral + $total;
+{
+?>
+<tr>
+<td colspan="3" align="right"> total comanda: <td>
+<td><?=$totalGeneral?> lei </td>
+</tr>
+</table>
+<input type="hidden" name="id_tranzactie" value="<?=$rowTranzactie['id_tranzactie']?>">
+<input type="submit" name="comanda_onorata" value="Comanda onorata">
+  <input type="submit" name="anuleaza_comanda" value="anuleaza comanda">
+  
+  </div>
+  </form>
+  
+  <?
+  }
+  ?>
+  </body>
+  </html>
+  
+  
+  
+  //prelucrare_comenzi.php
+  <?
+include("autorizare.php");
+include("admin_top.php");
+print <h1> comenzi </h1>";
+
+?>
+ 
+ if(isset($_POST['coamnda_onorata']))
+{
+$sql = "update tranzactii set comanda_onorata=".$_POST['id_tranzactie'];
+mysql_query($sql);
+print "comanda a fost onorata!";
+}
+
+if(isset($_POST['anuleaza_comanda']))
+{
+$sqlTranzactii = "delete from tranzactii where id_tranzactie=".$_POST['id_tranzactie'];
+mysql_query($sqlTranzactii);
+$sqlCarti = "delete from vanzari where id_tranzactie=".$_POST['id_tranzactie'];
+mysql_query($sqlCarti);
+print "comanda a fost anulata!";
+}
+?>
+</body>
+</html>
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+   
+  
+  
